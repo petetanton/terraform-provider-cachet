@@ -20,6 +20,7 @@ jobs:
           go build -o main.go
   docs:
     runs-on: ubuntu-latest
+    concurrency: "docs"
     permissions:
       contents: write
     steps:
@@ -28,9 +29,11 @@ jobs:
       - name: fetch doc generator
         run: wget https://github.com/hashicorp/terraform-plugin-docs/releases/download/v0.14.0/tfplugindocs_0.14.0_linux_amd64.zip
       - name: unzip
-        run: unzip tfplugindocs_0.14.0_linux_amd64.zip
+        run: |
+          mkdir bin
+          unzip tfplugindocs_0.14.0_linux_amd64.zip -d bin
       - name: generate-docs
-        run: ./tfplugindocs_0.14.0_linux_amd64/tfplugindocs generate
+        run: ./bin/tfplugindocs generate
       - name: commit docs
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
