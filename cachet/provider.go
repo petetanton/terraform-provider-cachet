@@ -31,6 +31,7 @@ func Provider() *schema.Provider {
 		DataSourcesMap: map[string]*schema.Resource{
 			"cachet_component":       dataSourceCachetComponent(),
 			"cachet_component_group": dataSourceCachetComponentGroup(),
+			"cachet_metric":          dataSourceCachetMetric(),
 		},
 	}
 

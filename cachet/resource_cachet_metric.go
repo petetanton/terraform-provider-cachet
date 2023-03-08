@@ -7,7 +7,6 @@ import (
 	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
 const (
@@ -21,83 +20,36 @@ const (
 	defaultView     = "default_view"
 	threshold       = "mins_between_datapoints"
 	visibility      = "visibility"
+
+	visibilityPublic  = "public"
+	visibilityPrivate = "private"
+	visibilityHidden  = "hidden"
+
+	viewHour    = "HOUR"
+	view12Hours = "12_HOURS"
+	viewWeek    = "WEEK"
+	viewMonth   = "MONTH"
 )
 
 var (
-	metricViews = map[string]interface{}{
-		"HOUR":     cachet.MetricsViewLastHour,
-		"12_HOURS": cachet.MetricsViewLast12Hours,
-		"WEEK":     cachet.MetricsViewLastWeek,
-		"MONTH":    cachet.MetricsViewLastMonth,
+	metricViewMap = map[string]interface{}{
+		viewHour:    cachet.MetricsViewLastHour,
+		view12Hours: cachet.MetricsViewLast12Hours,
+		viewWeek:    cachet.MetricsViewLastWeek,
+		viewMonth:   cachet.MetricsViewLastMonth,
 	}
-	metricVisibilities = map[string]interface{}{
-		"public":  cachet.MetricsVisibilityPublic,
-		"private": cachet.MetricsVisibilityLoggedIn,
-		"hidden":  cachet.MetricsVisibilityHidden,
+	metricVisibilityMap = map[string]interface{}{
+		visibilityPublic:  cachet.MetricsVisibilityPublic,
+		visibilityPrivate: cachet.MetricsVisibilityLoggedIn,
+		visibilityHidden:  cachet.MetricsVisibilityHidden,
 	}
+	metricVisibilities = []string{visibilityPublic, visibilityPrivate, visibilityHidden}
+	metricViews        = []string{viewHour, view12Hours, viewWeek, viewMonth}
 )
 
 func resourceCachetMetric() *schema.Resource {
 	return &schema.Resource{
-		Schema: map[string]*schema.Schema{
-			name: {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			description: {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			unit: {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			defaultValue: {
-				Type:     schema.TypeInt,
-				Required: true,
-				ForceNew: true,
-			},
-			calculationType: {
-				Type:             schema.TypeString,
-				Optional:         true,
-				ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice([]string{sum, average}, false)),
-				Default:          sum,
-				ForceNew:         true,
-			},
-			displayChart: {
-				Type:     schema.TypeBool,
-				Default:  true,
-				Optional: true,
-				ForceNew: true,
-			},
-			decimalPlaces: {
-				Type:             schema.TypeInt,
-				Required:         true,
-				ValidateDiagFunc: validation.ToDiagFunc(validation.IntAtLeast(0)),
-				ForceNew:         true,
-			},
-			defaultView: {
-				Type:             schema.TypeString,
-				Required:         true,
-				ValidateDiagFunc: StringInMapKeys(metricViews, false),
-				ForceNew:         true,
-			},
-			threshold: {
-				Type:             schema.TypeInt,
-				Required:         true,
-				ValidateDiagFunc: validation.ToDiagFunc(validation.IntAtLeast(1)),
-				ForceNew:         true,
-			},
-			visibility: {
-				Type:             schema.TypeString,
-				Required:         true,
-				ValidateDiagFunc: StringInMapKeys(metricVisibilities, false),
-				ForceNew:         true,
-			},
-		},
+		Schema:        getMetricSchema(false),
 		CreateContext: resourceCachetMetricCreate,
 		ReadContext:   resourceCachetMetricRead,
 		//UpdateContext:      resourceCachetMetricUpdate,
@@ -183,9 +135,9 @@ func buildMetric(d *schema.ResourceData) *cachet.Metric {
 		DefaultValue: d.Get(defaultValue).(int),
 		DisplayChart: d.Get(displayChart).(bool),
 		Places:       d.Get(decimalPlaces).(int),
-		DefaultView:  metricViews[d.Get(defaultView).(string)].(int),
+		DefaultView:  metricViewMap[d.Get(defaultView).(string)].(int),
 		Threshold:    d.Get(threshold).(int),
-		Visible:      metricVisibilities[d.Get(visibility).(string)].(int),
+		Visible:      metricVisibilityMap[d.Get(visibility).(string)].(int),
 	}
 
 	if d.Get(calculationType).(string) == sum {
@@ -207,9 +159,9 @@ func setMetric(d *schema.ResourceData, metric *cachet.Metric) diag.Diagnostics {
 	d.Set(displayChart, metric.DisplayChart)
 	d.Set(decimalPlaces, metric.Places)
 
-	d.Set(defaultView, FindIntInMap(metricViews, metric.DefaultView, "12_HOURS"))
+	d.Set(defaultView, FindIntInMap(metricViewMap, metric.DefaultView, "12_HOURS"))
 	d.Set(threshold, metric.Threshold)
-	d.Set(visibility, FindIntInMap(metricVisibilities, metric.Visible, "private"))
+	d.Set(visibility, FindIntInMap(metricVisibilityMap, metric.Visible, "private"))
 
 	if metric.CalcType == cachet.MetricsCalculationSum {
 	} else {
