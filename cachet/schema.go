@@ -11,32 +11,38 @@ import (
 func getComponentSchema(dataSource bool) map[string]*schema.Schema {
 	return map[string]*schema.Schema{
 		name: {
-			Type:     schema.TypeString,
-			Required: true,
+			Type:        schema.TypeString,
+			Required:    true,
+			Description: "Name of the component",
 		},
 		description: {
-			Type:     schema.TypeString,
-			Required: !dataSource,
-			Computed: dataSource,
+			Type:        schema.TypeString,
+			Required:    !dataSource,
+			Computed:    dataSource,
+			Description: "Description of the component",
 		},
 		link: {
-			Type:     schema.TypeString,
-			Optional: true,
+			Type:        schema.TypeString,
+			Optional:    true,
+			Description: "A link to the component - can be used for Runbooks etc",
 		},
 		status: {
 			Type:             schema.TypeString,
 			Optional:         true,
 			Default:          "unknown",
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice([]string{"unknown", "operational", "performance_issues", "partial_outage", "major_outage"}, false)),
+			Description:      "The current status of thc component. If you have automation that updates the component status, please use lifecycle rules in terraform",
 		},
 		enabled: {
-			Type:     schema.TypeBool,
-			Default:  true,
-			Optional: true,
+			Type:        schema.TypeBool,
+			Default:     true,
+			Optional:    true,
+			Description: "Is the component enabled",
 		},
 		groupId: {
-			Type:     schema.TypeInt,
-			Optional: true,
+			Type:        schema.TypeInt,
+			Optional:    true,
+			Description: "The group that the component is within",
 		},
 	}
 }
@@ -44,13 +50,15 @@ func getComponentSchema(dataSource bool) map[string]*schema.Schema {
 func getComponentGroupSchema(dataSource bool) map[string]*schema.Schema {
 	return map[string]*schema.Schema{
 		name: {
-			Type:     schema.TypeString,
-			Required: true,
+			Type:        schema.TypeString,
+			Required:    true,
+			Description: "Name of the component group",
 		},
 		public: {
-			Type:     schema.TypeBool,
-			Required: !dataSource,
-			Optional: dataSource,
+			Type:        schema.TypeBool,
+			Required:    !dataSource,
+			Optional:    dataSource,
+			Description: "Is the component group public?",
 		},
 	}
 }
@@ -58,27 +66,31 @@ func getComponentGroupSchema(dataSource bool) map[string]*schema.Schema {
 func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 	return map[string]*schema.Schema{
 		name: {
-			Type:     schema.TypeString,
-			Required: true,
-			ForceNew: true,
+			Type:        schema.TypeString,
+			Required:    true,
+			ForceNew:    true,
+			Description: "Name of the metric",
 		},
 		description: {
-			Type:     schema.TypeString,
-			Required: !dataSource,
-			Optional: dataSource,
-			ForceNew: true,
+			Type:        schema.TypeString,
+			Required:    !dataSource,
+			Optional:    dataSource,
+			ForceNew:    true,
+			Description: "Descripion of the metric",
 		},
 		unit: {
-			Type:     schema.TypeString,
-			Required: !dataSource,
-			Optional: dataSource,
-			ForceNew: true,
+			Type:        schema.TypeString,
+			Required:    !dataSource,
+			Optional:    dataSource,
+			ForceNew:    true,
+			Description: "The unit suffix for the metrics",
 		},
 		defaultValue: {
-			Type:     schema.TypeInt,
-			Required: !dataSource,
-			Optional: dataSource,
-			ForceNew: true,
+			Type:        schema.TypeInt,
+			Required:    !dataSource,
+			Optional:    dataSource,
+			ForceNew:    true,
+			Description: "The default value of the metric to be displayed when there is no data",
 		},
 		calculationType: {
 			Type:             schema.TypeString,
@@ -86,12 +98,14 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice([]string{sum, average}, false)),
 			Default:          sum,
 			ForceNew:         true,
+			Description:      "Define how math should be performed on this metric",
 		},
 		displayChart: {
-			Type:     schema.TypeBool,
-			Default:  true,
-			Optional: true,
-			ForceNew: true,
+			Type:        schema.TypeBool,
+			Default:     true,
+			Optional:    true,
+			ForceNew:    true,
+			Description: "Should thi metric be displayed on the status page?",
 		},
 		decimalPlaces: {
 			Type:             schema.TypeInt,
@@ -99,6 +113,7 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			Optional:         dataSource,
 			ValidateDiagFunc: validation.ToDiagFunc(validation.IntAtLeast(0)),
 			ForceNew:         true,
+			Description:      "The number of decimal places to use for this metric",
 		},
 		defaultView: {
 			Type:             schema.TypeString,
