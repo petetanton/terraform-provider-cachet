@@ -17,11 +17,11 @@ description: |-
 
 ### Required
 
-- `name` (String)
+- `name` (String) Name of the component group
 
 ### Optional
 
-- `public` (Boolean)
+- `public` (Boolean) Is the component group public?
 
 ### Read-Only
 

@@ -17,15 +17,15 @@ A component is a resource that defines a deployable thing that can be operationa
 
 ### Required
 
-- `description` (String)
-- `name` (String)
+- `description` (String) Description of the component
+- `name` (String) Name of the component
 
 ### Optional
 
-- `enabled` (Boolean)
-- `group_id` (Number)
-- `link` (String)
-- `status` (String)
+- `enabled` (Boolean) Is the component enabled
+- `group_id` (Number) The group that the component is within
+- `link` (String) A link to the component - can be used for Runbooks etc
+- `status` (String) The current status of thc component. If you have automation that updates the component status, please use lifecycle rules in terraform
 - `timeouts` (Block, Optional) (see [below for nested schema](#nestedblock--timeouts))
 
 ### Read-Only

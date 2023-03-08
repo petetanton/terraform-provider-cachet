@@ -17,8 +17,8 @@ A component group is a resource that defines a group of components
 
 ### Required
 
-- `name` (String)
-- `public` (Boolean)
+- `name` (String) Name of the component group
+- `public` (Boolean) Is the component group public?
 
 ### Optional
 

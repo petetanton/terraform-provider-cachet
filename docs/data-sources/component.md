@@ -17,18 +17,18 @@ description: |-
 
 ### Required
 
-- `name` (String)
+- `name` (String) Name of the component
 
 ### Optional
 
-- `enabled` (Boolean)
-- `group_id` (Number)
-- `link` (String)
-- `status` (String)
+- `enabled` (Boolean) Is the component enabled
+- `group_id` (Number) The group that the component is within
+- `link` (String) A link to the component - can be used for Runbooks etc
+- `status` (String) The current status of thc component. If you have automation that updates the component status, please use lifecycle rules in terraform
 
 ### Read-Only
 
-- `description` (String)
+- `description` (String) Description of the component
 - `id` (String) The ID of this resource.
 
 
