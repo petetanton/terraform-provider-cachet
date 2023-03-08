@@ -114,7 +114,7 @@ func resourceCachetMetricDelete(ctx context.Context, d *schema.ResourceData, met
 
 	id, err := strconv.Atoi(d.Id())
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	_, err = client.Metrics.Delete(id)
@@ -153,7 +153,7 @@ func resourceCachetMetricCreate(ctx context.Context, d *schema.ResourceData, met
 
 	createdMetric, _, err := client.Metrics.Create(metirc)
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	d.SetId(strconv.Itoa(createdMetric.ID))

@@ -47,7 +47,7 @@ func resourceCachetComponentDelete(ctx context.Context, d *schema.ResourceData, 
 
 	id, err := strconv.Atoi(d.Id())
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	_, err = client.Components.Delete(id)

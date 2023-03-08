@@ -32,7 +32,7 @@ func resourceCachetComponentGroupDelete(ctx context.Context, d *schema.ResourceD
 
 	id, err := strconv.Atoi(d.Id())
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	_, err = client.ComponentGroups.Delete(id)
@@ -70,7 +70,7 @@ func resourceCachetComponentGroupCreate(ctx context.Context, d *schema.ResourceD
 
 	createdComponentGroup, _, err := client.ComponentGroups.Create(componentGroup)
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	d.SetId(strconv.Itoa(createdComponentGroup.ID))

@@ -23,7 +23,7 @@ func dataSourceCachetComponentGroupRead(ctx context.Context, d *schema.ResourceD
 		QueryOptions: cachet.QueryOptions{},
 	})
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	for _, component := range componentGroups.ComponentGroups {

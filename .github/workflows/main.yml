@@ -47,7 +47,7 @@ jobs:
           go-version: 1.19
       - name: Run tests
         run: |
-          TF_ACC=true CACHET_TOKEN=foo CACHET_URL=http://localhost:8000 go test -v ./cachet
+          TF_ACC=true CACHET_URL=http://localhost:8000 go test -v ./cachet
   docs:
     runs-on: ubuntu-latest
     concurrency: "docs"
