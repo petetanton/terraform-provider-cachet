@@ -15,11 +15,11 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
-          8001:5432
+          - 8001:5432
       cachet:
         image: cachethq/docker
         ports:
-          8000:8000
+          - 8000:8000
         env:
           - CACHE_DRIVER=database
           - QUEUE_DRIVER=database
