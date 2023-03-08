@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	componentStatuses = map[string]interface{}{
+	componentStatuses = map[string]int{
 		"unknown":            cachet.ComponentStatusUnknown,
 		"operational":        cachet.ComponentStatusOperational,
 		"performance_issues": cachet.ComponentStatusPerformanceIssues,
@@ -30,34 +30,7 @@ var (
 
 func resourceCachetComponent() *schema.Resource {
 	return &schema.Resource{
-		Schema: map[string]*schema.Schema{
-			name: {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			description: {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			link: {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
-			status: {
-				Type:             schema.TypeString,
-				Optional:         true,
-				ValidateDiagFunc: StringInMapKeys(componentStatuses, false),
-			},
-			enabled: {
-				Type:     schema.TypeBool,
-				Default:  true,
-				Optional: true,
-			},
-			groupId: {
-				Type:     schema.TypeInt,
-				Optional: true,
-			},
-		},
+		Schema:             getComponentSchema(false),
 		CreateContext:      resourceCachetComponentCreate,
 		ReadContext:        resourceCachetComponentRead,
 		UpdateContext:      resourceCachetComponentUpdate,
@@ -112,7 +85,7 @@ func resourceCachetComponentCreate(ctx context.Context, d *schema.ResourceData, 
 
 	createdComponent, _, err := client.Components.Create(component)
 	if err != nil {
-		diag.FromErr(err)
+		return diag.FromErr(err)
 	}
 
 	d.SetId(strconv.Itoa(createdComponent.ID))
@@ -146,7 +119,7 @@ func buildComponent(d *schema.ResourceData) *cachet.Component {
 	}
 
 	if attr, ok := d.GetOk(status); ok {
-		component.Status = componentStatuses[attr.(string)].(int)
+		component.Status = componentStatuses[attr.(string)]
 	} else {
 		component.Status = cachet.ComponentStatusUnknown
 	}
@@ -165,7 +138,12 @@ func setComponent(d *schema.ResourceData, component *cachet.Component) diag.Diag
 
 	d.Set(description, component.Description)
 	d.Set(link, component.Link)
-	d.Set(status, component.Status)
+
+	for s, i := range componentStatuses {
+		if i == component.Status {
+			d.Set(status, s)
+		}
+	}
 	d.Set(enabled, component.Enabled)
 	d.Set(groupId, component.GroupID)
 

@@ -28,7 +28,10 @@ func Provider() *schema.Provider {
 			"cachet_component_group": resourceCachetComponentGroup(),
 			"cachet_metric":          resourceCachetMetric(),
 		},
-		DataSourcesMap: map[string]*schema.Resource{},
+		DataSourcesMap: map[string]*schema.Resource{
+			"cachet_component":       dataSourceCachetComponent(),
+			"cachet_component_group": dataSourceCachetComponentGroup(),
+		},
 	}
 
 	p.ConfigureContextFunc = func(ctx context.Context, data *schema.ResourceData) (interface{}, diag.Diagnostics) {

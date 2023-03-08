@@ -15,16 +15,7 @@ const (
 
 func resourceCachetComponentGroup() *schema.Resource {
 	return &schema.Resource{
-		Schema: map[string]*schema.Schema{
-			name: {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			public: {
-				Type:     schema.TypeBool,
-				Required: true,
-			},
-		},
+		Schema:             getComponentGroupSchema(false),
 		CreateContext:      resourceCachetComponentGroupCreate,
 		ReadContext:        resourceCachetComponentGroupRead,
 		UpdateContext:      resourceCachetComponentGroupUpdate,
