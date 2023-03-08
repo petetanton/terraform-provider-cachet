@@ -2,8 +2,11 @@ builds:
   - binary: '{{ .ProjectName }}_v{{ .Version }}'
     goarch:
       - arm64
+      - amd64
     goos:
       - darwin
+      - windows
+      - linux
 archives:
   - format: zip
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
