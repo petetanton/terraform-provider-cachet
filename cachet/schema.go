@@ -125,3 +125,21 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 		},
 	}
 }
+
+func getSubscriberSchema(dataSource bool) map[string]*schema.Schema {
+	return map[string]*schema.Schema{
+		"email": {
+			Type:        schema.TypeString,
+			Required:    true,
+			Description: "the email address for the subscriber",
+			ForceNew:    true,
+		},
+		"verify": {
+			Type:        schema.TypeBool,
+			Optional:    true,
+			Description: "whether to send a verification email",
+			ForceNew:    true,
+			Default:     false,
+		},
+	}
+}

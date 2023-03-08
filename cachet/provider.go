@@ -7,6 +7,8 @@ import (
 	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
+	"github.com/petetanton/terraform-provider-cachet/pkg/cachet2"
 )
 
 func Provider() *schema.Provider {
@@ -27,6 +29,7 @@ func Provider() *schema.Provider {
 			"cachet_component":       resourceCachetComponent(),
 			"cachet_component_group": resourceCachetComponentGroup(),
 			"cachet_metric":          resourceCachetMetric(),
+			"cachet_subscriber":      resourceCachetSubscriber(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			"cachet_component":       dataSourceCachetComponent(),
@@ -52,18 +55,22 @@ func Provider() *schema.Provider {
 }
 
 func providerConfig(data *schema.ResourceData) (interface{}, error) {
-	client, err := cachet.NewClient(data.Get("api_url").(string), nil)
+	url := data.Get("api_url").(string)
+	token := data.Get("token").(string)
+
+	client, err := cachet.NewClient(url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	client.Authentication.SetTokenAuth(data.Get("token").(string))
+	client.Authentication.SetTokenAuth(token)
 
-	return &Config{Client: client}, nil
+	return &Config{Client: client, Client2: cachet2.New(url, token)}, nil
 }
 
 type Config struct {
-	Client *cachet.Client
+	Client  *cachet.Client
+	Client2 *cachet2.Client
 }
 
 func getDefaultTimeout() *schema.ResourceTimeout {

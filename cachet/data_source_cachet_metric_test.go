@@ -2,6 +2,7 @@ package cachet
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
@@ -24,7 +25,6 @@ func Test_CachetMetricDatasourceSimple(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("cachet_metric.this", "name", metricName),
 					resource.TestCheckResourceAttr("cachet_metric.this", "description", metricDescription),
-					//testDatasourceMetric("cachet_metric.this", "data.cachet_metric.this"),
 				),
 			},
 			{
@@ -40,6 +40,10 @@ func Test_CachetMetricDatasourceSimple(t *testing.T) {
 }
 
 func Test_CachetMetricDatasourceComplex(t *testing.T) {
+	if os.Getenv("TEST_SKIP_SLOW") == "true" {
+		t.SkipNow()
+	}
+
 	noOfMetricsToTest := acctest.RandIntRange(25, 100)
 
 	var plan1 string
