@@ -56,7 +56,6 @@ func resourceCachetMetric() *schema.Resource {
 		DeleteContext:      resourceCachetMetricDelete,
 		Importer:           nil,
 		DeprecationMessage: "",
-		Timeouts:           getDefaultTimeout(),
 		Description:        "A component group is a resource that defines a group of components",
 	}
 }

@@ -22,7 +22,6 @@ func resourceCachetComponentGroup() *schema.Resource {
 		DeleteContext:      resourceCachetComponentGroupDelete,
 		Importer:           nil,
 		DeprecationMessage: "",
-		Timeouts:           getDefaultTimeout(),
 		Description:        "A component group is a resource that defines a group of components",
 	}
 }

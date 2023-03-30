@@ -2,7 +2,6 @@ package cachet
 
 import (
 	"context"
-	"time"
 
 	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -71,15 +70,4 @@ func providerConfig(data *schema.ResourceData) (interface{}, error) {
 type Config struct {
 	Client  *cachet.Client
 	Client2 *cachet2.Client
-}
-
-func getDefaultTimeout() *schema.ResourceTimeout {
-	timeout := time.Second * 30
-	return &schema.ResourceTimeout{
-		Create:  &timeout,
-		Read:    &timeout,
-		Update:  &timeout,
-		Delete:  &timeout,
-		Default: &timeout,
-	}
 }

@@ -37,7 +37,6 @@ func resourceCachetComponent() *schema.Resource {
 		DeleteContext:      resourceCachetComponentDelete,
 		Importer:           nil,
 		DeprecationMessage: "",
-		Timeouts:           getDefaultTimeout(),
 		Description:        "A component is a resource that defines a deployable thing that can be operational or degraded",
 	}
 }
