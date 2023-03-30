@@ -26,21 +26,9 @@ A component is a resource that defines a deployable thing that can be operationa
 - `group_id` (Number) The group that the component is within
 - `link` (String) A link to the component - can be used for Runbooks etc
 - `status` (String) The current status of thc component. If you have automation that updates the component status, please use lifecycle rules in terraform
-- `timeouts` (Block, Optional) (see [below for nested schema](#nestedblock--timeouts))
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-<a id="nestedblock--timeouts"></a>
-### Nested Schema for `timeouts`
-
-Optional:
-
-- `create` (String)
-- `default` (String)
-- `delete` (String)
-- `read` (String)
-- `update` (String)
 
 
