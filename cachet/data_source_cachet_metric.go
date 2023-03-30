@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/petetanton/cachet-sdk"
 )
 
 func dataSourceCachetMetric() *schema.Resource {

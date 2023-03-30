@@ -4,9 +4,9 @@ import (
 	"context"
 	"strconv"
 
-	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/petetanton/cachet-sdk"
 )
 
 const (
@@ -49,10 +49,10 @@ var (
 
 func resourceCachetMetric() *schema.Resource {
 	return &schema.Resource{
-		Schema:        getMetricSchema(false),
-		CreateContext: resourceCachetMetricCreate,
-		ReadContext:   resourceCachetMetricRead,
-		//UpdateContext:      resourceCachetMetricUpdate,
+		Schema:             getMetricSchema(false),
+		CreateContext:      resourceCachetMetricCreate,
+		ReadContext:        resourceCachetMetricRead,
+		UpdateContext:      resourceCachetMetricUpdate,
 		DeleteContext:      resourceCachetMetricDelete,
 		Importer:           nil,
 		DeprecationMessage: "",
@@ -78,24 +78,24 @@ func resourceCachetMetricDelete(ctx context.Context, d *schema.ResourceData, met
 }
 
 // TODO: this needs update support in the SDK first!
-//func resourceCachetMetricUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-//	client := meta.(*Config).Client
-//
-//	metirc := buildMetric(d)
-//	idInt, err := strconv.Atoi(d.Id())
-//	if err != nil {
-//		return diag.FromErr(err)
-//	}
-//
-//	metirc.ID = idInt
-//
-//	updatedMetric, _, err := client.Metrics(idInt, metirc)
-//	if err != nil {
-//		return diag.FromErr(err)
-//	}
-//
-//	return setMetric(d, updatedMetric)
-//}
+func resourceCachetMetricUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	client := meta.(*Config).Client
+
+	metirc := buildMetric(d)
+	idInt, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	metirc.ID = idInt
+
+	updatedMetric, _, err := client.Metrics.Update(idInt, metirc)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	return setMetric(d, updatedMetric)
+}
 
 func resourceCachetMetricCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Config).Client

@@ -4,9 +4,10 @@ go 1.19
 
 require (
 	github.com/andygrunwald/cachet v0.0.0-20210622170326-34d0d1408d1c
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.1.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.25.0
 	github.com/lib/pq v1.10.7
+	github.com/petetanton/cachet-sdk v0.0.0-20230330102659-5e58d5392560
 )
 
 require (

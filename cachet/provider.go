@@ -3,9 +3,9 @@ package cachet
 import (
 	"context"
 
-	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/petetanton/cachet-sdk"
 
 	"github.com/petetanton/terraform-provider-cachet/pkg/cachet2"
 )

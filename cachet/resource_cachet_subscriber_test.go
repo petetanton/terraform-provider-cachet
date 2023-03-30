@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/andygrunwald/cachet"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/petetanton/cachet-sdk"
 )
 
 func Test_CachetSubscriberResource(t *testing.T) {

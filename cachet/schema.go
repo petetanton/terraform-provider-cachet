@@ -68,28 +68,24 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 		name: {
 			Type:        schema.TypeString,
 			Required:    true,
-			ForceNew:    true,
 			Description: "Name of the metric",
 		},
 		description: {
 			Type:        schema.TypeString,
 			Required:    !dataSource,
 			Optional:    dataSource,
-			ForceNew:    true,
 			Description: "Descripion of the metric",
 		},
 		unit: {
 			Type:        schema.TypeString,
 			Required:    !dataSource,
 			Optional:    dataSource,
-			ForceNew:    true,
 			Description: "The unit suffix for the metrics",
 		},
 		defaultValue: {
 			Type:        schema.TypeInt,
 			Required:    !dataSource,
 			Optional:    dataSource,
-			ForceNew:    true,
 			Description: "The default value of the metric to be displayed when there is no data",
 		},
 		calculationType: {
@@ -97,14 +93,12 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			Optional:         true,
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice([]string{sum, average}, false)),
 			Default:          sum,
-			ForceNew:         true,
 			Description:      "Define how math should be performed on this metric",
 		},
 		displayChart: {
 			Type:        schema.TypeBool,
 			Default:     true,
 			Optional:    true,
-			ForceNew:    true,
 			Description: "Should thi metric be displayed on the status page?",
 		},
 		decimalPlaces: {
@@ -112,7 +106,6 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			Required:         !dataSource,
 			Optional:         dataSource,
 			ValidateDiagFunc: validation.ToDiagFunc(validation.IntAtLeast(0)),
-			ForceNew:         true,
 			Description:      "The number of decimal places to use for this metric",
 		},
 		defaultView: {
@@ -120,7 +113,6 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			Required:         !dataSource,
 			Optional:         dataSource,
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice(metricViews, false)),
-			ForceNew:         true,
 			Description:      fmt.Sprintf("default view of the metric, must be on of: %s", strings.Join(metricViews, ",")),
 		},
 		threshold: {
@@ -135,7 +127,6 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			Required:         !dataSource,
 			Optional:         dataSource,
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice(metricVisibilities, false)),
-			ForceNew:         true,
 			Description:      fmt.Sprintf("visibility of the metric, must be on of: %s", strings.Join(metricVisibilities, ",")),
 		},
 	}
