@@ -3,7 +3,6 @@ module github.com/petetanton/terraform-provider-cachet
 go 1.19
 
 require (
-	github.com/andygrunwald/cachet v0.0.0-20210622170326-34d0d1408d1c
 	github.com/google/uuid v1.1.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.26.1
 	github.com/lib/pq v1.10.7
