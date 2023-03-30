@@ -30,21 +30,9 @@ A component group is a resource that defines a group of components
 
 - `calculation_type` (String) Define how math should be performed on this metric
 - `display_chart` (Boolean) Should thi metric be displayed on the status page?
-- `timeouts` (Block, Optional) (see [below for nested schema](#nestedblock--timeouts))
 
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-
-<a id="nestedblock--timeouts"></a>
-### Nested Schema for `timeouts`
-
-Optional:
-
-- `create` (String)
-- `default` (String)
-- `delete` (String)
-- `read` (String)
-- `update` (String)
 
 
