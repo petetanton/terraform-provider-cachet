@@ -17,5 +17,5 @@ description: |-
 
 ### Required
 
-- `api_url` (String)
-- `token` (String)
+- `api_url` (String) The endpoint where Cachet is running.
+- `token` (String) The API token to use for Cachet. Generate it from within your account on the Cachet server.
