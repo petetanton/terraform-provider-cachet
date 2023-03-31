@@ -17,11 +17,13 @@ func Provider() *schema.Provider {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CACHET_TOKEN", nil),
+				Description: "The API token to use for Cachet. Generate it from within your account on the Cachet server.",
 			},
 			"api_url": {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: schema.EnvDefaultFunc("CACHET_URL", nil),
+				Description: "The endpoint where Cachet is running.",
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
