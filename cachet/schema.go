@@ -129,6 +129,11 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice(metricVisibilities, false)),
 			Description:      fmt.Sprintf("visibility of the metric, must be on of: %s", strings.Join(metricVisibilities, ",")),
 		},
+		groupId: {
+			Type:        schema.TypeInt,
+			Optional:    true,
+			Description: "The group that the metric is within",
+		},
 	}
 }
 
@@ -146,6 +151,22 @@ func getSubscriberSchema(dataSource bool) map[string]*schema.Schema {
 			Description: "whether to send a verification email",
 			ForceNew:    true,
 			Default:     false,
+		},
+	}
+}
+
+func getMetricGroupSchema(dataSource bool) map[string]*schema.Schema {
+	return map[string]*schema.Schema{
+		name: {
+			Type:        schema.TypeString,
+			Required:    true,
+			Description: "Name of the metric group",
+		},
+		public: {
+			Type:        schema.TypeBool,
+			Required:    !dataSource,
+			Optional:    dataSource,
+			Description: "Is the metric group public?",
 		},
 	}
 }

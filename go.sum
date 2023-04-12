@@ -173,8 +173,8 @@ github.com/mitchellh/reflectwalk v1.0.2/go.mod h1:mSTlrgnPZtwu0c4WaC2kGObEpuNDbx
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/oklog/run v1.0.0 h1:Ru7dDtJNOyC66gQ5dQmaCa0qIsAUFY3sFpK1Xk8igrw=
 github.com/oklog/run v1.0.0/go.mod h1:dlhp/R75TPv97u0XWUtDeV/lRKWPKSdTuV0TZvrmrQA=
-github.com/petetanton/cachet-sdk v0.0.1-rc1 h1:v4tqzMCKGm9huQj5mQV0kR+HZqb48nRHOZrZxIi18wU=
-github.com/petetanton/cachet-sdk v0.0.1-rc1/go.mod h1:K2FfSMv6vLyZ2/djkDdkUY+4R6RGIgVcnGURf3qcx0c=
+github.com/petetanton/cachet-sdk v0.0.1-rc3 h1:nVOjlQUaPY2CFqVr4ZPb4iTAYGkjqEeJCBngbqswuTY=
+github.com/petetanton/cachet-sdk v0.0.1-rc3/go.mod h1:K2FfSMv6vLyZ2/djkDdkUY+4R6RGIgVcnGURf3qcx0c=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
