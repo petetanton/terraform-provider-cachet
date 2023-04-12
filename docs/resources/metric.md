@@ -30,6 +30,7 @@ A component group is a resource that defines a group of components
 
 - `calculation_type` (String) Define how math should be performed on this metric
 - `display_chart` (Boolean) Should thi metric be displayed on the status page?
+- `group_id` (Number) The group that the metric is within
 
 ### Read-Only
 

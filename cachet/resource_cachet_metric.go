@@ -77,7 +77,6 @@ func resourceCachetMetricDelete(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
-// TODO: this needs update support in the SDK first!
 func resourceCachetMetricUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	client := meta.(*Config).Client
 
@@ -143,6 +142,10 @@ func buildMetric(d *schema.ResourceData) *cachet.Metric {
 		metirc.CalcType = cachet.MetricsCalculationSum
 	} else {
 		metirc.CalcType = cachet.MetricsCalculationAverage
+	}
+
+	if attr, ok := d.GetOk(groupId); ok {
+		metirc.GroupID = attr.(int)
 	}
 
 	return metirc

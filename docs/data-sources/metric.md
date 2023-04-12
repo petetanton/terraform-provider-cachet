@@ -27,6 +27,7 @@ description: |-
 - `default_view` (String) default view of the metric, must be on of: HOUR,12_HOURS,WEEK,MONTH
 - `description` (String) Descripion of the metric
 - `display_chart` (Boolean) Should thi metric be displayed on the status page?
+- `group_id` (Number) The group that the metric is within
 - `mins_between_datapoints` (Number)
 - `unit` (String) The unit suffix for the metrics
 - `visibility` (String) visibility of the metric, must be on of: public,private,hidden
