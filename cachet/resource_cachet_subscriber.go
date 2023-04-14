@@ -65,8 +65,6 @@ func resourceCachetSubscriberRead(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	return setSubscriber(d, subscriber)
-
-	return nil
 }
 
 func setSubscriber(d *schema.ResourceData, subscriber *cachet2.Subscriber) diag.Diagnostics {

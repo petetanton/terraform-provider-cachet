@@ -3,6 +3,7 @@ package cachet
 import (
 	"context"
 	"strconv"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -10,7 +11,11 @@ import (
 )
 
 const (
-	public = "public"
+	public                 = "public"
+	collapsed              = "collapsed"
+	collapsedNo            = "no"
+	collapsedYes           = "yes"
+	collapsedIfOperational = "if_operational"
 )
 
 func resourceCachetComponentGroup() *schema.Resource {
@@ -102,6 +107,10 @@ func buildComponentGroup(d *schema.ResourceData) *cachet.ComponentGroup {
 		componentGroup.Visible = cachet.ComponentGroupVisibilityLoggedIn
 	}
 
+	if attr, ok := d.GetOk(collapsed); ok {
+		componentGroup.Collapsed = getCollapsedInt(attr.(string))
+	}
+
 	return componentGroup
 
 }
@@ -109,6 +118,8 @@ func buildComponentGroup(d *schema.ResourceData) *cachet.ComponentGroup {
 func setComponentGroup(d *schema.ResourceData, componentGroup *cachet.ComponentGroup) diag.Diagnostics {
 	d.SetId(strconv.Itoa(componentGroup.ID))
 	d.Set(name, componentGroup.Name)
+	d.Set(collapsed, getCollapsedString(componentGroup.Collapsed))
+
 	if componentGroup.Visible == cachet.ComponentGroupVisibilityPublic {
 		d.Set(public, true)
 	} else {
@@ -116,4 +127,28 @@ func setComponentGroup(d *schema.ResourceData, componentGroup *cachet.ComponentG
 	}
 
 	return nil
+}
+
+func getCollapsedInt(in string) int {
+	if strings.EqualFold(in, collapsedIfOperational) {
+		return 2
+	}
+
+	if strings.EqualFold(in, collapsedYes) {
+		return 1
+	}
+
+	return 0
+}
+
+func getCollapsedString(in int) string {
+	if in == 2 {
+		return collapsedIfOperational
+	}
+
+	if in == 1 {
+		return collapsedYes
+	}
+
+	return collapsedNo
 }
