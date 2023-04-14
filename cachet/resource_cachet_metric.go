@@ -148,6 +148,10 @@ func buildMetric(d *schema.ResourceData) *cachet.Metric {
 		metirc.GroupID = attr.(int)
 	}
 
+	if attr, ok := d.GetOk(order); ok {
+		metirc.Order = attr.(int)
+	}
+
 	return metirc
 
 }
@@ -160,10 +164,10 @@ func setMetric(d *schema.ResourceData, metric *cachet.Metric) diag.Diagnostics {
 	d.Set(defaultValue, metric.DefaultValue)
 	d.Set(displayChart, metric.DisplayChart)
 	d.Set(decimalPlaces, metric.Places)
-
 	d.Set(defaultView, FindIntInMap(metricViewMap, metric.DefaultView, "12_HOURS"))
 	d.Set(threshold, metric.Threshold)
 	d.Set(visibility, FindIntInMap(metricVisibilityMap, metric.Visible, "private"))
+	d.Set(order, metric.Order)
 
 	if metric.CalcType == cachet.MetricsCalculationSum {
 	} else {

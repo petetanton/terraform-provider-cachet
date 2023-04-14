@@ -21,6 +21,7 @@ description: |-
 
 ### Optional
 
+- `collapsed` (String)
 - `public` (Boolean) Is the component group public?
 
 ### Read-Only

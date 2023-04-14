@@ -60,6 +60,12 @@ func getComponentGroupSchema(dataSource bool) map[string]*schema.Schema {
 			Optional:    dataSource,
 			Description: "Is the component group public?",
 		},
+		collapsed: {
+			Type:             schema.TypeString,
+			Optional:         true,
+			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice([]string{collapsedNo, collapsedYes, collapsedIfOperational}, false)),
+			Default:          collapsedNo,
+		},
 	}
 }
 
@@ -133,6 +139,12 @@ func getMetricSchema(dataSource bool) map[string]*schema.Schema {
 			Type:        schema.TypeInt,
 			Optional:    true,
 			Description: "The group that the metric is within",
+		},
+		order: {
+			Type:        schema.TypeInt,
+			Optional:    true,
+			Default:     0,
+			Description: "The order that the metric should appear in",
 		},
 	}
 }

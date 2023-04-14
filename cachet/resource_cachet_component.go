@@ -16,6 +16,7 @@ const (
 	link        = "link"
 	status      = "status"
 	groupId     = "group_id"
+	order       = "order"
 )
 
 var (

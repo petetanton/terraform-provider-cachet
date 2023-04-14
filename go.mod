@@ -6,7 +6,7 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.26.1
 	github.com/lib/pq v1.10.7
-	github.com/petetanton/cachet-sdk v0.0.1-rc3
+	github.com/petetanton/cachet-sdk v0.0.1-rc4
 )
 
 require (
