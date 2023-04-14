@@ -29,6 +29,7 @@ description: |-
 - `display_chart` (Boolean) Should thi metric be displayed on the status page?
 - `group_id` (Number) The group that the metric is within
 - `mins_between_datapoints` (Number)
+- `order` (Number) The order that the metric should appear in
 - `unit` (String) The unit suffix for the metrics
 - `visibility` (String) visibility of the metric, must be on of: public,private,hidden
 

@@ -20,6 +20,10 @@ A component group is a resource that defines a group of components
 - `name` (String) Name of the component group
 - `public` (Boolean) Is the component group public?
 
+### Optional
+
+- `collapsed` (String)
+
 ### Read-Only
 
 - `id` (String) The ID of this resource.
