@@ -64,6 +64,7 @@ func getComponentGroupSchema(dataSource bool) map[string]*schema.Schema {
 			Type:             schema.TypeString,
 			Optional:         true,
 			ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice([]string{collapsedNo, collapsedYes, collapsedIfOperational}, false)),
+			Default:          collapsedNo,
 		},
 	}
 }
