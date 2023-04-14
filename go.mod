@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/google/uuid v1.1.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.26.1
-	github.com/lib/pq v1.10.7
+	github.com/lib/pq v1.10.8
 	github.com/petetanton/cachet-sdk v0.0.1-rc4
 )
 
