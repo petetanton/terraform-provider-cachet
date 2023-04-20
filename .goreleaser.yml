@@ -1,5 +1,7 @@
 builds:
   - binary: '{{ .ProjectName }}_v{{ .Version }}'
+    env:
+      - CGO_ENABLED=0
     goarch:
       - arm64
       - amd64
