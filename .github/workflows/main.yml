@@ -65,7 +65,7 @@ jobs:
       - name: generate-docs
         run: ./bin/tfplugindocs generate
       - name: commit docs
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update docs
           file_pattern: 'docs/*'
