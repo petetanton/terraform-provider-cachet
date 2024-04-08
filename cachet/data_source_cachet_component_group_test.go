@@ -16,7 +16,7 @@ func Test_CachetComponentGroupDatasource(t *testing.T) {
 		ProviderFactories: testProviderFactory(),
 		CheckDestroy:      testCheckCachetComponentGroupDestroy,
 		Steps: []resource.TestStep{
-			testStepComponentGroup("service", "description", groupName),
+			testStepComponentGroup("service", "description", groupName, true),
 			testStepComponentGroupData(groupName),
 		},
 	})

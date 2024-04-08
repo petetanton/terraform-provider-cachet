@@ -19,24 +19,29 @@ func Test_CachetComponentGroupResource(t *testing.T) {
 		CheckDestroy:      testCheckCachetComponentGroupDestroy,
 		Steps: []resource.TestStep{
 			testStepComponent("service-name", "service-description"),
-			testStepComponentGroup("service-name", "service-description", "group-name"),
+			testStepComponentGroup("service-name", "service-description", "group-name", true),
+			testStepComponentGroup("service-name", "service-description", "group-name", false),
 		},
 	})
 }
 
-func testStepComponentGroup(serviceName, serviceDescription, groupName string) resource.TestStep {
+func testStepComponentGroup(serviceName, serviceDescription, groupName string, public bool) resource.TestStep {
+	pubStr := "false"
+	if public {
+		pubStr = "true"
+	}
 	return resource.TestStep{
-		Config: testPlanSimpleServiceWithGroup(serviceName, serviceDescription, groupName),
+		Config: testPlanSimpleServiceWithGroup(serviceName, serviceDescription, groupName, pubStr),
 		Check: resource.ComposeTestCheckFunc(
 			resource.TestCheckResourceAttr("cachet_component.this", "name", serviceName),
 			resource.TestCheckResourceAttr("cachet_component.this", "description", serviceDescription),
 			resource.TestCheckResourceAttr("cachet_component_group.this", "name", groupName),
-			resource.TestCheckResourceAttr("cachet_component_group.this", "public", "true"),
+			resource.TestCheckResourceAttr("cachet_component_group.this", "public", pubStr),
 		),
 	}
 }
 
-func testPlanSimpleServiceWithGroup(serviceName, serviceDescription, groupName string) string {
+func testPlanSimpleServiceWithGroup(serviceName, serviceDescription, groupName, pubStr string) string {
 	return fmt.Sprintf(`
 resource "cachet_component" "this" {
   name = "%s"
@@ -45,9 +50,9 @@ resource "cachet_component" "this" {
 
 resource "cachet_component_group" "this" {
   name = "%s"
-  public = true
+  public = %s
 }
-`, serviceName, serviceDescription, groupName)
+`, serviceName, serviceDescription, groupName, pubStr)
 }
 
 func testCheckCachetComponentGroupDestroy(s *terraform.State) error {
