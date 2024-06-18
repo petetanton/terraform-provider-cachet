@@ -1,3 +1,4 @@
+version: 2
 builds:
   - binary: '{{ .ProjectName }}_v{{ .Version }}'
     env:
@@ -36,4 +37,4 @@ release:
     name: "terraform-provider-cachet"
   draft: true
 changelog:
-  skip: true
+  disable: false
