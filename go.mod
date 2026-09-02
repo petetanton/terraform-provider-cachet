@@ -7,7 +7,7 @@ toolchain go1.25.2
 require (
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.1
-	github.com/lib/pq v1.10.9
+	github.com/lib/pq v1.12.3
 	github.com/petetanton/cachet-sdk v0.0.1-rc4
 )
 
